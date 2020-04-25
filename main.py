@@ -3,6 +3,7 @@ import googlemaps
 import pprint
 import time
 import json
+import re
 from credentials import API_KEY
 
 #Takes a long time to load the pandas df due to length of table.
@@ -38,13 +39,22 @@ def get_user_location():
 def nearest_stores(user_location, radius=20000):
     """
     parameters:
-    radius is 20000 meters which equates to 12.5 miles, user can decide to increase it if they have more mobility.
+    radius is 20000 meters which equates to 12.5 miles
     supported types here: https://developers.google.com/places/supported_types
     """
     #TODO: open_now set to False for debugging purposes!
     nearest_places = gmaps.places_nearby(location=user_location, radius=radius, open_now=False, type='grocery_or_supermarket')
     nearest_places_result = nearest_places["results"]
 
-    return [(place["name"], place["vicinity"]) for place in nearest_places_result]
+    return [(place["name"], place["vicinity"], distance(user_location, place["vicinity"])) for place in nearest_places_result]
 
 test_location = (37.8712358,-122.2581406) #TODO:Coordinates of UC Berkeley, for debugging purposes!
+
+def distance(user_location, destination):
+    distance_data = gmaps.distance_matrix(user_location, destination)
+
+    #distance = distance_data["rows"][0]['elements'][0]['distance']['text']
+
+    distance = float(re.findall(r"[-+]?\d*\.\d+|\d+", distance)[0])
+
+    return distance
