@@ -9,6 +9,8 @@ import {
 } from '@eva-design/eva';
 import Navigator from './components/Navigator';
 
+
+
 const HomeScreen = () => (
   <Layout style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
         <Text style={styles.text} category='h1'>
