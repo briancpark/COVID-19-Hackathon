@@ -14,11 +14,11 @@ const User = t.struct({
   password: t.String
 });
 
-export default class App extends Component {
+export default class Login extends Component {
   handleSubmit() {
     console.log(this.loginform);
   }
-  
+
   render() {
     return (
       <View style={styles.container}>
