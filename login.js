@@ -1,93 +1,48 @@
-var btn = document.getElementById("loginBtn").addEventListener('click', function(){
-                    var usernameBox = document.getElementById("usernameTextBox");
-                    var passwordBox = document.getElementById("passwordTextBox");
-                    if(usernameBox.value.length == 0 || passwordBox.value.length == 0){
-                        document.getElementById("loginBtn").disabled = true;
-                            document.getElementById("loginBtn").innerHTML = "Loading ";
-                            var btnLoading = document.createElement("span");
-                            btnLoading.className = "spinner-border spinner-border-sm";
-                            btnLoading.setAttribute("role","status");
-                            document.getElementById("loginBtn").appendChild(btnLoading);
-                            setTimeout(function(){
-                                btnLoading.remove();
-                                document.getElementById("loginBtn").disabled = false;
-                                document.getElementById("loginBtn").innerHTML = "Log in "; 
-                                var errorAlert = document.createElement("div");
-                                errorAlert.className = "alert alert-danger";
-                                errorAlert.setAttribute("role","alert");
-                                errorAlert.innerHTML = "no empty fields. thx";
-                                errorAlert.style = "position: absolute;top: 60%;left: 50%;transform: translate(-50%,-50%); width: 200px; height: 50px;";
-                                window.document.body.append(errorAlert);
+// login form built from this tutorial:
+// https://medium.com/react-native-development/easily-build-forms-in-react-native-9006fcd2a73b
+import React, { Component } from 'react';
+import { Text, View, Button, StyleSheet, TouchableOpacity } from 'react-native';
+import t from 'tcomb-form-native';
 
-                                setTimeout(function(){
-                                    errorAlert.remove();
-                                },3000);
-                            }, 1000);
-                    }else{
+// Form
+const Form = t.form.Form;
 
-                        fetch("/api/login", {
-                            method:'POST',
-                            body: JSON.stringify({email:usernameBox.value,password:passwordBox.value}),
-                            headers:{"Content-Type": "application/json"}
-                            }).then(response => {
-                                //
-                                if(response.status == 200){
-                                    document.getElementById("loginBtn").disabled = true;
-                                    document.getElementById("loginBtn").innerHTML = "Loading ";
-                                    var btnLoading = document.createElement("span");
-                                    btnLoading.className = "spinner-border spinner-border-sm";
-                                    btnLoading.setAttribute("role","status");
-                                    document.getElementById("loginBtn").appendChild(btnLoading);
-                                    setTimeout(function(){
-                                    btnLoading.remove();
-                                    document.getElementById("loginBtn").disabled = false;
-                                    document.getElementById("loginBtn").innerHTML = "Log in "; 
-                                    window.document.location.replace("/vendor/panel");
-                                    }, 3000);
-                                }else if(response.status == 404){
-                                    document.getElementById("loginBtn").disabled = true;
-                                    document.getElementById("loginBtn").innerHTML = "Loading ";
-                                    var btnLoading = document.createElement("span");
-                                    btnLoading.className = "spinner-border spinner-border-sm";
-                                    btnLoading.setAttribute("role","status");
-                                    document.getElementById("loginBtn").appendChild(btnLoading);
-                                    setTimeout(function(){
-                                    btnLoading.remove();
-                                    document.getElementById("loginBtn").disabled = false;
-                                    document.getElementById("loginBtn").innerHTML = "Log in "; 
-                                    var errorAlert = document.createElement("div");
-                                    errorAlert.className = "alert alert-danger";
-                                    errorAlert.setAttribute("role","alert");
-                                    errorAlert.innerHTML = "email doesn't exist";
-                                    errorAlert.style = "position: absolute;top: 60%;left: 50%;transform: translate(-50%,-50%); width: 200px; height: 50px;";
-                                    window.document.body.append(errorAlert);
+// Form model
+const User = t.struct({
+  user: t.String,
+  email: t.String,
+  password: t.String
+});
 
-                                    setTimeout(function(){
-                                        errorAlert.remove();
-                                    },3000);
-                                    }, 3000);
-                                }else if(response.status == 400){
-                                    document.getElementById("loginBtn").disabled = true;
-                                    document.getElementById("loginBtn").innerHTML = "Loading ";
-                                    var btnLoading = document.createElement("span");
-                                    btnLoading.className = "spinner-border spinner-border-sm";
-                                    btnLoading.setAttribute("role","status");
-                                    document.getElementById("loginBtn").appendChild(btnLoading);
-                                    setTimeout(function(){
-                                    btnLoading.remove();
-                                    document.getElementById("loginBtn").disabled = false;
-                                    document.getElementById("loginBtn").innerHTML = "Log in "; 
-                                    var errorAlert = document.createElement("div");
-                                    errorAlert.className = "alert alert-danger";
-                                    errorAlert.setAttribute("role","alert");
-                                    errorAlert.innerHTML = "wrong credentials";
-                                    errorAlert.style = "position: absolute;top: 60%;left: 50%;transform: translate(-50%,-50%); width: 200px; height: 50px;";
-                                    window.document.body.append(errorAlert);
+export default class App extends Component {
+  handleSubmit() {
+    console.log(this.loginform);
+  }
+  
+  render() {
+    return (
+      <View style={styles.container}>
+      <Text>Login</Text>
+        <Form ref={c => this.loginform = c} type={User} />
+        <TouchableOpacity style={styles.forms}
+          title="Login"
+          onPress={this.handleSubmit}
+        />
+      </View>
+    );
+  }
+}
 
-                                    setTimeout(function(){
-                                        errorAlert.remove();
-                                    },3000);
-                                    }, 3000);
-                                }
-
-                                })
+const styles = StyleSheet.create({
+  container: {
+    justifyContent: 'center',
+    marginTop: 150,
+    padding: 20,
+    backgroundColor: '#ffffff',
+  },
+  forms: {
+    color: '#fff',
+    backgroundColor: '#1c1c1c',
+    borderRadius: 45
+  }
+ });
