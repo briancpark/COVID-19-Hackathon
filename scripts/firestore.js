@@ -12,9 +12,11 @@ export function firebaseInit() {
     messagingSenderId: "493237187020",
     appId: "1:493237187020:web:6dc6e50b87840d3092ad69"
   };
-  firebase.initializeApp(firebaseConfig);
 
-  console.log('Firebase Initialized!');
+  if (!firebase.apps.length) {
+    firebase.initializeApp(firebaseConfig);
+    console.log('Firebase Initialized!');
+  }
 }
 
 
