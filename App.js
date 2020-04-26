@@ -8,23 +8,15 @@ import {
   light as theme,
 } from '@eva-design/eva';
 import Navigator from './components/Navigator';
-import UserManager from './scripts/userManager';
-import * as Firestore from './scripts/firestore';
+
 import { NavigationContainer } from '@react-navigation/native';
 
-//initialize firebase
+import * as Firestore from './scripts/firestore';
+
+
 Firestore.firebaseInit();
 
-//create user manager
-let userManager = new UserManager();
-
-
-
 export default function App() {
-
-  useEffect(() => {
-    userManager.loginListener();
-  })
 
   return (
     <View style={styles.container}>
