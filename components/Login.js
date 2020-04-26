@@ -1,8 +1,9 @@
 // login form built from this tutorial:
 // https://medium.com/react-native-development/easily-build-forms-in-react-native-9006fcd2a73b
 import React, { Component } from 'react';
-import { Text, View, Button, StyleSheet, TouchableOpacity } from 'react-native';
+import { Text, View, StyleSheet } from 'react-native';
 import t from 'tcomb-form-native';
+import { Button } from '@ui-kitten/components';
 
 // Form
 const Form = t.form.Form;
@@ -15,19 +16,19 @@ const User = t.struct({
 });
 
 export default class Login extends Component {
-  handleSubmit() {
-    console.log(this.loginform);
+  handleSubmit = () => {
+    const value = this._form.getValue(); // use that ref to get the form value
+    console.log('value: ', value);
   }
 
   render() {
     return (
       <View style={styles.container}>
       <Text>Login</Text>
-        <Form ref={c => this.loginform = c} type={User} />
-        <TouchableOpacity style={styles.forms}
-          title="Login"
-          onPress={this.handleSubmit}
-        />
+        <Form ref={c => this._form = c} type={User} />
+        <Button style={styles.forms} onPress={this.handleSubmit}>
+          Sign Up!
+        </Button>
       </View>
     );
   }
