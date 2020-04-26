@@ -65,6 +65,14 @@ export default class UserManager {
             }
         })
     }
+
+    loginUser(email, password) {
+        try {
+          return firebase.auth().signInWithEmailAndPassword(email, password).then(() => console.log("Logged in."));
+        } catch (error) {
+          return alert(error.message);
+        }
+    }
 }
 
 function authenticateUser(token) {

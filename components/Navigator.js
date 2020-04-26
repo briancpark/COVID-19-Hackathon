@@ -8,6 +8,7 @@ import Login from './Login';
 import Home from './Home';
 import Add from './Add';
 import Nearby from './Nearby';
+import Recents from './Recents';
 
 const Tab = createBottomTabNavigator();
 
@@ -46,7 +47,7 @@ const BottomTabBar = ({ navigation, state }) => {
 export default function Navigator() {
   return (
     <Tab.Navigator tabBar={props => <BottomTabBar {...props} />}>
-      <Tab.Screen name='Recents' component={Home}/>
+      <Tab.Screen name='Recents' component={Recents}/>
       <Tab.Screen name='Add' component={Add}/>
       <Tab.Screen name='Nearby' component={Nearby}/>
     </Tab.Navigator>

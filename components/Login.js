@@ -4,27 +4,29 @@ import React, { Component } from 'react';
 import { Text, View, StyleSheet } from 'react-native';
 import t from 'tcomb-form-native';
 import { Button } from '@ui-kitten/components';
+import UserManager from '../scripts/userManager';
+
+let userManager = new UserManager();
 
 // Form
 const Form = t.form.Form;
 
 // Form model
 const User = t.struct({
-  user: t.String,
+  // user: t.String,
   email: t.String,
   password: t.String
 });
-
 export default class Login extends Component {
   handleSubmit = () => {
     const value = this._form.getValue(); // use that ref to get the form value
-    console.log('value: ', value);
+    userManager.loginUser(value.email, value.password)
+        .then(() => this.props.navigation.navigate("Navigator"));
   }
 
   render() {
     return (
       <View style={styles.container}>
-      <Text>Login</Text>
         <Form ref={c => this._form = c} type={User} />
         <Button style={styles.forms} onPress={this.handleSubmit}>
           Log In!

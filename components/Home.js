@@ -1,5 +1,5 @@
 import {Button, Icon, Layout, Text} from "@ui-kitten/components";
-import {StyleSheet, View} from "react-native";
+import {Dimensions, StyleSheet, View} from "react-native";
 import React, {Component} from "react";
 
 
@@ -25,8 +25,10 @@ export default class Home extends Component {
         <Text style={styles.text} category='s1'>
           Made with 🧻 by Brian, Edward, Sean, and Karl
         </Text>
-        <Button style={styles.likeButton} accessoryLeft={HeartIcon} onPress={() => pulseIconRef.current.startAnimation()}>
-          LIKE
+        <Button style={styles.likeButton} accessoryLeft={HeartIcon} onPress={() => {
+          this.props.navigation.navigate('Login', {userManager: userManager});
+        }}>
+          Email Login
         </Button>
         <LoginButton/>
       </Layout>
@@ -36,15 +38,15 @@ export default class Home extends Component {
 
 const pulseIconRef = React.createRef();
 const HeartIcon = (style) => (
-  <Icon name='heart' ref={pulseIconRef} animation='shake' {...style} />
+  <Icon name='npm' {...style} />
 );
 
 const FacebookIcon = (props) => (
-  <Icon name='facebook' {...props} />
+  <Icon name='facebook' ref={pulseIconRef} animation='shake' {...props} />
 );
 
 const LoginButton = () => (
-  <Button onPress={() => {userManager.logInWithFacebook();}} accessoryLeft={FacebookIcon}>Login with Facebook</Button>
+  <Button onPress={() => {pulseIconRef.current.startAnimation(); userManager.logInWithFacebook();}} accessoryLeft={FacebookIcon}>Login with Facebook</Button>
 );
 
 const styles = StyleSheet.create({
