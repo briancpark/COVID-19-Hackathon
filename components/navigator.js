@@ -1,11 +1,13 @@
 import React from 'react';
-import {StyleSheet, View} from "react-native";
+import {StyleSheet, View, Dimensions} from "react-native";
 import { ApplicationProvider, Button, Icon, IconRegistry, Layout, Text } from '@ui-kitten/components';
 import { BottomNavigation, BottomNavigationTab } from '@ui-kitten/components';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Login from './Login';
 import Home from './Home';
+import Add from './Add';
+import Nearby from './Nearby';
 
 const Tab = createBottomTabNavigator();
 
@@ -31,8 +33,6 @@ const BottomTabBar = ({ navigation, state }) => {
   const topState = useBottomNavigationState();
 
   return (
-    <React.Fragment>
-
       <BottomNavigation style={styles.bottomNavigation} {...topState}
         selectedIndex={state.index}
         onSelect={index => navigation.navigate(state.routeNames[index])}>
@@ -40,30 +40,24 @@ const BottomTabBar = ({ navigation, state }) => {
         <BottomNavigationTab title='Add' icon={BellIcon}/>
         <BottomNavigationTab title='Nearby' icon={EmailIcon}/>
       </BottomNavigation>
-
-    </React.Fragment>
   );
 };
 
 export default function Navigator() {
   return (
-      // <MainNavigator tabBar={props => <BottomTabBar {...props} />}>
-      //   <Screen name='Recents' component={Home}/>
-      //   <Screen name='Add' component={Login}/>
-      //   <Screen name='Nearby' component={Login}/>
-      // </MainNavigator>
-      <View>
-              <Tab.Navigator tabBar={props => <BottomTabBar {...props} />}>
-        <Tab.Screen name='Recents' component={Home}/>
-        <Tab.Screen name='Add' component={Home}/>
-        <Tab.Screen name='Nearby' component={Login}/>
-      </Tab.Navigator>
-        <Text>very long string of text that will take up the whole screen</Text></View>
+    <Tab.Navigator tabBar={props => <BottomTabBar {...props} />}>
+      <Tab.Screen name='Recents' component={Home}/>
+      <Tab.Screen name='Add' component={Add}/>
+      <Tab.Screen name='Nearby' component={Nearby}/>
+    </Tab.Navigator>
   )
 };
+
+const WIDTH = Dimensions.get('window').width;
 
 const styles = StyleSheet.create({
   bottomNavigation: {
     marginVertical: 8,
+    width: WIDTH,
   },
 });
