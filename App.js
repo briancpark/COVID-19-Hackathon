@@ -10,6 +10,7 @@ import {
 import Navigator from './components/Navigator';
 import UserManager from './scripts/userManager';
 import * as Firestore from './scripts/firestore';
+import { NavigationContainer } from '@react-navigation/native';
 
 //initialize firebase
 Firestore.firebaseInit();
@@ -17,35 +18,6 @@ Firestore.firebaseInit();
 //create user manager
 let userManager = new UserManager();
 
-const HomeScreen = () => (
-  <Layout style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-        <Text style={styles.text} category='h1'>
-          Welcome {userName} 😻
-        </Text>
-        <Text style={styles.text} category='s1'>
-          Start with editing App.js to configure your App
-        </Text>
-        <Text style={styles.text} appearance='hint'>
-          For example, try changing theme to Dark by simply changing an import
-        </Text>
-        <Button style={styles.likeButton} accessoryLeft={HeartIcon}>
-          LIKE
-        </Button>
-        <LoginButton/>
-  </Layout>
-);
-
-const HeartIcon = (style) => (
-  <Icon name='heart' {...style} />
-);
-
-const FacebookIcon = (props) => (
-  <Icon name='facebook' {...props} />
-);
-
-export const LoginButton = () => (
-  <Button onPress={userManager.logInWithFacebook} accessoryLeft={FacebookIcon}>Login with Facebook</Button>
-);
 
 export default function App() {
 
@@ -57,8 +29,9 @@ export default function App() {
     <View style={styles.container}>
      <IconRegistry icons={EvaIconsPack}/>
      <ApplicationProvider mapping={mapping} theme={theme}>
-       <HomeScreen/>
-       <Navigator/>
+      <NavigationContainer>
+        <Navigator/>
+      </NavigationContainer>
      </ApplicationProvider>
     </View>
   );
