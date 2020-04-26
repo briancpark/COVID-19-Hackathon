@@ -1,4 +1,4 @@
-# COVID-19-Hackathon
+# Stockket
 
 Collaborators: Brian Park, Edward Lee, Karl Zhu, Sean Huggins
 
