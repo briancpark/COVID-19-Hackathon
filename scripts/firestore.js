@@ -31,7 +31,6 @@ export function storeProductRequest(userId, productId) {
 }
 
 export function getProductRequests(userId) {
-
   firebase.firestore()
     .collection("users")
     .doc(userId)
@@ -43,9 +42,6 @@ export function getProductRequests(userId) {
       })
     })
 }
-
-
-
 
 export function storeUser(userId, userData) {
   firebase.firestore()
