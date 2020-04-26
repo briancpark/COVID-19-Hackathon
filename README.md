@@ -3,7 +3,8 @@
 Collaborators: Brian Park, Edward Lee, Karl Zhu, Sean Huggins
 
 ## Setup
-[Insert documentation on how to setup node.js/dependencies and how to run app.js here]
+Make sure that you have node.js and React Native installed with all the dependicies. 
+Type `expo start` in the directory to start the web app to your localhost. To test on your Android or iOS device, please download the Expo client app and scan the QR code through your mobile device's camera. If some errors pop up, `npm audit fix` may fix some of the problems and missing dependencies. 
 
 ## Sources
 [Database for Grocery Items](https://www.grocery.com/open-grocery-database-project/)
