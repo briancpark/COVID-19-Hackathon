@@ -5,10 +5,9 @@ import React, {Component} from "react";
 
 import UserManager from '../scripts/userManager';
 import * as Firestore from '../scripts/firestore';
-
 //create user manager
 let userManager = new UserManager();
-
+Firestore.firebaseInit();
 
 export default class Add extends Component {
 
@@ -45,7 +44,7 @@ const SearchIcon = (style) => (
   <Icon name='search' {...style} fill={'black'}/>
 );
 const MicIcon = (style) => (
-  <Icon name='mic' {...style} fill={'black'}/>
+  <Icon name='mic' {...style} fill={'black'} onPress={() => Firestore.searchFood("Kraf")}/>
 );
 
 const styles = StyleSheet.create({

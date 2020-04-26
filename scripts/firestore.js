@@ -1,6 +1,7 @@
 import * as firebase from 'firebase';
 
 import "firebase/firestore";
+import "firebase/database";
 
 export function firebaseInit() {
   const firebaseConfig = {
@@ -43,6 +44,22 @@ export function getProductRequests(userId) {
 
       })
     })
+}
+
+export function searchFood(query) {
+  const db = firebase.database().ref();
+  let results = db
+      .child(`/groceries/`)
+      .orderByChild('brand')
+      .startAt(query)
+      .limitToFirst(10)
+
+  results.once('value').then(r => console.log(r));
+
+  //snapshot => {
+  //     console.log('User data: ', snapshot.val());
+  //   }
+  // console.log(db.child('groceries'));
 }
 
 export function storeUser(userId, userData) {
