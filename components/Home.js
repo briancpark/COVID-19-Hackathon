@@ -19,16 +19,13 @@ export default class Home extends Component {
   render() {
   return (
       <Layout style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-        <Text style={styles.text} category='h1'>
-          Welcome to UI Kitten 😻
+        <Text style={styles.text} category='h3'>
+          Welcome to Stockket
         </Text>
         <Text style={styles.text} category='s1'>
-          Start with editing App.js to configure your App
+          Made with 🧻 by Brian, Edward, Sean, and Karl
         </Text>
-        <Text style={styles.text} appearance='hint'>
-          For example, try changing theme to Dark by simply changing an import
-        </Text>
-        <Button style={styles.likeButton} accessoryLeft={HeartIcon}>
+        <Button style={styles.likeButton} accessoryLeft={HeartIcon} onPress={() => pulseIconRef.current.startAnimation()}>
           LIKE
         </Button>
         <LoginButton/>
@@ -37,8 +34,9 @@ export default class Home extends Component {
   }
 }
 
+const pulseIconRef = React.createRef();
 const HeartIcon = (style) => (
-  <Icon name='heart' {...style} />
+  <Icon name='heart' ref={pulseIconRef} animation='shake' {...style} />
 );
 
 const FacebookIcon = (props) => (
@@ -53,8 +51,10 @@ const styles = StyleSheet.create({
   text: {
     textAlign: 'center',
     color: 'black',
+    marginTop: 10,
   },
   likeButton: {
+    marginTop: 50,
     marginVertical: 16,
   },
 });

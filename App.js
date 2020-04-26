@@ -23,7 +23,7 @@ export default function App() {
      <IconRegistry icons={EvaIconsPack}/>
      <ApplicationProvider mapping={mapping} theme={theme}>
       <NavigationContainer>
-        <Navigator/>
+        <Navigator />
       </NavigationContainer>
      </ApplicationProvider>
     </View>
@@ -36,6 +36,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
+    alignSelf: 'stretch',
     justifyContent: 'center',
   },
   text: {
