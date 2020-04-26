@@ -2,7 +2,19 @@ import {Button, Icon, Layout, Text} from "@ui-kitten/components";
 import {StyleSheet, View} from "react-native";
 import React, {Component} from "react";
 
+
+import UserManager from '../scripts/userManager';
+import * as Firestore from '../scripts/firestore';
+
+//create user manager
+let userManager = new UserManager();
+
+
 export default class Home extends Component {
+  componentDidMount() {
+    userManager.loginListener();
+  }
+
 
   render() {
   return (
@@ -34,7 +46,7 @@ const FacebookIcon = (props) => (
 );
 
 const LoginButton = () => (
-  <Button accessoryLeft={FacebookIcon}>Login with Facebook</Button>
+  <Button onPress={() => {userManager.logInWithFacebook();}} accessoryLeft={FacebookIcon}>Login with Facebook</Button>
 );
 
 const styles = StyleSheet.create({
