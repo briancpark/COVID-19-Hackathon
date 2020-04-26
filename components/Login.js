@@ -27,7 +27,7 @@ export default class Login extends Component {
       <Text>Login</Text>
         <Form ref={c => this._form = c} type={User} />
         <Button style={styles.forms} onPress={this.handleSubmit}>
-          Sign Up!
+          Log In!
         </Button>
       </View>
     );
